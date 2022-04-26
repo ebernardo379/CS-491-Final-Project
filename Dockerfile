@@ -9,4 +9,4 @@ RUN pip3 install coverage
 
 COPY . .
 
-CMD ["bash", "script.sh"]
+CMD ["python3", "test_driver.py"]
