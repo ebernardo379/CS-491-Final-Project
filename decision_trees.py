@@ -168,7 +168,7 @@ def build_tree(used, X, Y, entropy_whole, max_depth):
             max_ig = entropy_feat[i]
             feat = i
         i += 1
-        
+
     # print("-----")
     # print("Feature:", feat)
     # print("IG:", max_ig)
@@ -205,11 +205,11 @@ def build_tree(used, X, Y, entropy_whole, max_depth):
         x_new = []
         y_new = []
         while i < Y.size:
-            if X[i, feat] == 0:
-                if Y[i] == prob[0]:
+            if X[i, feat] == 0:  # if data point's feature is no
+                if Y[i] == prob[0]:  # and label is same as NO outcome
                     x_new = x_new
                     y_new = y_new
-            else:
+            else:  # else, add to new list
                 x_new.append(X[i])
                 y_new.append(Y[i])
             i += 1
@@ -223,9 +223,9 @@ def build_tree(used, X, Y, entropy_whole, max_depth):
         x_new = []
         y_new = []
         while i < Y.size:
-            if X[i, feat] == 1:
-                if Y[i] == prob[2]:
-                    x_new = x_new
+            if X[i, feat] == 1:  # if data point's feature is YES
+                if Y[i] == prob[2]:  # and label is same as YES outcome
+                    x_new = x_new  # take data point out of data set
                     y_new = y_new
             else:
                 x_new.append(X[i])
@@ -240,6 +240,18 @@ def build_tree(used, X, Y, entropy_whole, max_depth):
 
 # DT_train_binary(X, Y, max_depth)
 def DT_train_binary(X, Y, max_depth):
+    # invalid max_depth
+    if max_depth == 0 or max_depth < -1:
+        return None
+
+    # size of X does not match size of Y
+    if len(X) != Y.size:
+        return None
+
+    # data set is empty
+    if X.size == 0 or Y.size == 0:
+        return None
+
     # create a DT class
     # create temp array to track used features
     num_features = X[0].size
