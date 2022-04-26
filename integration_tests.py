@@ -77,3 +77,20 @@ class DecisionTreeIntegrationTests(unittest.TestCase):
 
         test_result = dt.build_tree(used, X, Y, entropy_whole, 2)
         self.assertTrue((dt.DT_train_binary(X, Y, 2) == test_result))
+
+    # test DT_train_binary() and DT_test_binary() with DT_train_and_test()
+    def test_train_and_test(self):
+        X = [[0, 1, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1]]
+        Y = [1, 1, 0]
+        X = np.array(X)
+        Y = np.array(Y)
+
+        max_depth = 3
+        DT_result = dt.DT_train_binary(X, Y, max_depth)
+        test_acc_result = dt.DT_test_binary(X, Y, DT_result)
+
+        # ensure DT_train_and_test_binary is returning the proper result
+        test_acc, DT = dt.DT_train_and_test_binary(X, Y, X, Y, max_depth)
+
+        self.assertEqual(test_acc, test_acc_result)
+        self.assertTrue(DT == DT_result)
