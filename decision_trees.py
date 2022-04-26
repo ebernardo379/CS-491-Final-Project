@@ -335,3 +335,11 @@ def DT_make_prediction(X, DT):
             else:  # if DT is not a leaf, cont searching tree
                 DT_temp = DT_temp[1]
     return prediction
+
+
+# DT_test_binary and train
+def DT_train_and_test_binary(X1, Y1, X2, Y2, max_depth):
+    # Train the DT Model
+    DT = DT_train_binary(X1, Y1, max_depth)
+    test_acc = DT_test_binary(X2, Y2, DT)
+    return test_acc, DT
